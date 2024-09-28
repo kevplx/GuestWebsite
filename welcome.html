@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Welcome Page</title>
+    <style>
+        /* Font and Colors */
+        @import url('https://fonts.googleapis.com/css2?family=Pacifico&family=Quicksand:wght@400;600&family=Orbitron:wght@500&display=swap');
+
+        body {
+            font-family: 'Quicksand', sans-serif;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            overflow: hidden;
+            background-color: #000; /* Black background */
+            position: relative;
+        }
+
+        /* Background Styling */
+        body::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: url('https://source.unsplash.com/1600x900/?nature,relaxing') no-repeat center center/cover;
+            opacity: 0.2; /* Faded relaxing scenery */
+            z-index: -1;
+        }
+
+        /* Header: Date, Time, Weather */
+        .header {
+            position: absolute;
+            top: 20px;
+            left: 40px; /* Adjusted for alignment */
+            width: calc(100% - 80px); /* To allow room for the weather widget */
+            display: flex;
+            justify-content: space-between;
+            align-items: center; /* Align items vertically */
+        }
+
+        .header .date-time {
+            font-family: 'Orbitron', sans-serif; /* Cool futuristic font */
+            font-size: 1em; /* Reduced size */
+            color: #fff; /* White text */
+            text-align: left; /* Justified to the left */
+        }
+
+        .header .weather {
+            font-size: 1.2em;
+            color: #ffcc33;
+            text-align: right; /* Justified to the right */
+        }
+
+        /* Container Styling */
+        .welcome-container {
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 20px;
+            padding: 40px;
+            box-shadow: 0px 10px 30px rgba(0, 0, 0, 0.8);
+            text-align: center;
+            width: 90%;
+            max-width: 600px;
+            animation: fadeIn 1s ease-out;
+            backdrop-filter: blur(10px);
+        }
+
+        /* Text Styling */
+        .welcome-title {
+            font-family: 'Pacifico', cursive;
+            font-size: 3em;
+            color: #ffcc33;
+            margin-bottom: 15px;
+        }
+
+        .welcome-message {
+            font-family: 'Quicksand', sans-serif;
+            font-size: 1.4em;
+            color: #f0f0f0;
+            margin-bottom: 30px;
+        }
+
+        /* Photo Placeholder */
+        .guest-photo {
+            width: 250px;
+            height: 250px;
+            border-radius: 50%;
+            background-color: #2a2a2a;
+            margin: 0 auto;
+            overflow: hidden;
+            box-shadow: 0 6px 15px rgba(0, 0, 0, 0.6);
+            transition: transform 0.3s ease-in-out;
+        }
+
+        .guest-photo:hover {
+            transform: scale(1.05);
+        }
+
+        .guest-photo img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        /* Subtle Animations */
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- Header with Date, Time, and Weather -->
+    <div class="header">
+        <div class="date-time" id="date-time">
+            <div id="current-date"></div>
+            <div id="current-day-time"></div>
+        </div>
+        <div class="weather">
+            <!-- Weather widget for Shawnee, KS -->
+            <iframe src="https://embed.windy.com/embed2.html?lat=39.0137&lon=-94.7404&detailLat=39.0137&detailLon=-94.7404&width=200&height=150&zoom=8&level=surface&overlay=rain&product=ecmwf&menu=&message=true&marker=&calendar=12&pressure=&type=map&location=coordinates&detail=&metricWind=default&metricTemp=default&radarRange=-1" 
+                frameborder="0" 
+                scrolling="no" 
+                width="200" 
+                height="150">
+            </iframe>
+        </div>
+    </div>
+
+    <div class="welcome-container">
+        <div class="welcome-title">Welcome, Brand Family!</div>
+        <div class="welcome-message">We’re delighted to have you with us.</div>
+        <div class="guest-photo">
+            <!-- Placeholder for guest photo -->
+            <img src="Brand.png" alt="Guest Photo" id="guest-photo">
+        </div>
+    </div>
+
+    <script>
+        // Set guest name and photo (static for now)
+        const guestName = 'John Doe';  // Replace with dynamic data
+        const guestPhotoUrl = 'Brand.png';  // Replace with dynamic URL
+        document.getElementById('guest-photo').src = guestPhotoUrl;
+
+        // Display current date and time
+        function updateDateTime() {
+            const now = new Date();
+            const optionsDate = { year: 'numeric', month: 'long', day: 'numeric' };
+            const optionsTime = { hour: '2-digit', minute: '2-digit', second: '2-digit' };
+            const date = now.toLocaleDateString('en-US', optionsDate);
+            const dayTime = now.toLocaleString('en-US', optionsTime);
+            document.getElementById('current-date').textContent = date;
+            document.getElementById('current-day-time').textContent = dayTime;
+        }
+        setInterval(updateDateTime, 1000);  // Update every second
+        updateDateTime();  // Initial call
+    </script>
+
+</body>
+
+</html>
